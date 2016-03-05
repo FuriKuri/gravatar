@@ -1,4 +1,4 @@
-package main
+package gravatar
 
 import (
 	"github.com/kolo/xmlrpc"
@@ -21,7 +21,7 @@ func Exists(hash string, password string, hashes []string) map[string]bool {
 	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
 
 	var response map[string]int
-	client.Call("grav.exists", Request{Password: password, Hashes: hashes}, &response)
+	client.Call("grav.exists", request{Password: password, Hashes: hashes}, &response)
 
 	result := map[string]bool{}
 	for hash, value := range response {
@@ -35,7 +35,7 @@ func UseUserImage(hash string, password string, userImage string, addresses []st
 	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
 
 	var response map[string]bool
-	client.Call("grav.useUserimage", Request{Password: password, Addresses: addresses, UserImage: userImage}, &response)
+	client.Call("grav.useUserimage", request{Password: password, Addresses: addresses, UserImage: userImage}, &response)
 
 	return response
 }
