@@ -30,3 +30,12 @@ func Exists(hash string, password string, hashes []string) map[string]bool {
 
 	return result
 }
+
+func UseUserImage(hash string, password string, userImage string, addresses []string) map[string]bool {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response map[string]bool
+	client.Call("grav.useUserimage", Request{Password: password, Addresses: addresses, UserImage: userImage}, &response)
+
+	return response
+}
