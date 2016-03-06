@@ -17,6 +17,12 @@ type request struct {
 	Addresses []string `xmlrpc:"addresses"`
 }
 
+type ImageResponse struct {
+	Rating       int    `xmlrpc:"rating"`
+	UserImage    string `xmlrpc:"userimage"`
+	UserImageURL string `xmlrpc:"userimage_url"`
+}
+
 func Exists(hash string, password string, hashes []string) map[string]bool {
 	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
 
@@ -29,6 +35,15 @@ func Exists(hash string, password string, hashes []string) map[string]bool {
 	}
 
 	return result
+}
+
+func Addresses(hash string, password string) map[string]ImageResponse {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response map[string]ImageResponse
+	client.Call("grav.addresses", request{Password: password}, &response)
+
+	return response
 }
 
 func UseUserImage(hash string, password string, userImage string, addresses []string) map[string]bool {
