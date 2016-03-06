@@ -37,11 +37,20 @@ func Exists(hash string, password string, hashes []string) map[string]bool {
 	return result
 }
 
-func Addresses(hash string, password string) map[string]ImageResponse {
+func UserAddresses(hash string, password string) map[string]ImageResponse {
 	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
 
 	var response map[string]ImageResponse
 	client.Call("grav.addresses", request{Password: password}, &response)
+
+	return response
+}
+
+func UserImages(hash string, password string) map[string][]string {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response map[string][]string
+	client.Call("grav.userimages", request{Password: password}, &response)
 
 	return response
 }

@@ -1,14 +1,18 @@
 package gravatar
 
+import (
+	"strconv"
+)
+
 type Gravatar struct {
 	Email    string
 	Password string
 }
 
 type Image struct {
-	ID       string
-	Rating   int
-	ImageURL string
+	ID     string
+	Rating int
+	URL    string
 }
 
 type Address struct {
@@ -30,11 +34,32 @@ func (g *Gravatar) IsImageSet(emails []string) map[string]bool {
 	return hashToEmailMap(emails, hashExisting)
 }
 
-func (g *Gravatar) AddressInfo() []Address {
-	return hashToImageArray(Addresses(Hash(g.Email), g.Password))
+func (g *Gravatar) Addresses() []Address {
+	return hashToAddressArray(UserAddresses(Hash(g.Email), g.Password))
 }
 
-func hashToImageArray(addresses map[string]ImageResponse) []Address {
+func (g *Gravatar) Images() []Image {
+	return hashToImageArray(UserImages(Hash(g.Email), g.Password))
+}
+
+func hashToImageArray(images map[string][]string) []Image {
+	result := make([]Image, len(images))
+
+	index := 0
+	for key, value := range images {
+		rating, _ := strconv.Atoi(value[0])
+		result[index] = Image{
+			ID:     key,
+			Rating: rating,
+			URL:    value[1],
+		}
+		index = index + 1
+	}
+
+	return result
+}
+
+func hashToAddressArray(addresses map[string]ImageResponse) []Address {
 	result := make([]Address, len(addresses))
 
 	index := 0
@@ -42,9 +67,9 @@ func hashToImageArray(addresses map[string]ImageResponse) []Address {
 		result[index] = Address{
 			ID: key,
 			Image: Image{
-				Rating:   value.Rating,
-				ID:       value.UserImage,
-				ImageURL: value.UserImageURL,
+				Rating: value.Rating,
+				ID:     value.UserImage,
+				URL:    value.UserImageURL,
 			},
 		}
 		index = index + 1
