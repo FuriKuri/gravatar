@@ -12,6 +12,7 @@ type request struct {
 	Password  string   `xmlrpc:"password"`
 	Hashes    []string `xmlrpc:"hashes"`
 	Data      string   `xmlrpc:"data"`
+	URL       string   `xmlrpc:"url"`
 	Rating    int      `xmlrpc:"rating"`
 	UserImage string   `xmlrpc:"userimage"`
 	Addresses []string `xmlrpc:"addresses"`
@@ -60,6 +61,15 @@ func UseUserImage(hash string, password string, userImage string, addresses []st
 
 	var response map[string]bool
 	client.Call("grav.useUserimage", request{Password: password, Addresses: addresses, UserImage: userImage}, &response)
+
+	return response
+}
+
+func CallSaveURL(hash string, password, url string, rating int) string {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response string
+	client.Call("grav.saveUrl", request{Password: password, URL: url, Rating: rating}, &response)
 
 	return response
 }
