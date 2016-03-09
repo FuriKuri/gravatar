@@ -46,6 +46,10 @@ func (g *Gravatar) SaveURL(url string, rating int) string {
 	return CallSaveURL(Hash(g.Email), g.Password, url, rating)
 }
 
+func (g *Gravatar) SaveData(data []byte, rating int) string {
+	return CallSaveData(Hash(g.Email), g.Password, data, rating)
+}
+
 func hashToImageArray(images map[string][]string) []Image {
 	result := make([]Image, len(images))
 

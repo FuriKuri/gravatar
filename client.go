@@ -1,6 +1,8 @@
 package gravatar
 
 import (
+	"encoding/base64"
+	"fmt"
 	"github.com/kolo/xmlrpc"
 )
 
@@ -70,6 +72,16 @@ func CallSaveURL(hash string, password, url string, rating int) string {
 
 	var response string
 	client.Call("grav.saveUrl", request{Password: password, URL: url, Rating: rating}, &response)
+
+	return response
+}
+
+func CallSaveData(hash string, password string, data []byte, rating int) string {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+	imageData := base64.StdEncoding.EncodeToString(data)
+	fmt.Printf("base 64 %s", imageData)
+	var response string
+	client.Call("grav.saveData", request{Password: password, Data: imageData, Rating: rating}, &response)
 
 	return response
 }
