@@ -50,6 +50,10 @@ func (g *Gravatar) SaveData(data []byte, rating int) string {
 	return CallSaveData(Hash(g.Email), g.Password, data, rating)
 }
 
+func (g *Gravatar) RemoveImage(addresses []string) map[string]bool {
+	return CallRemoveImage(Hash(g.Email), g.Password, addresses)
+}
+
 func hashToImageArray(images map[string][]string) []Image {
 	result := make([]Image, len(images))
 

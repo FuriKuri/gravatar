@@ -85,3 +85,12 @@ func CallSaveData(hash string, password string, data []byte, rating int) string 
 
 	return response
 }
+
+func CallRemoveImage(hash string, password string, addresses []string) map[string]bool {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response map[string]bool
+	client.Call("grav.removeImage", request{Password: password, Addresses: addresses}, &response)
+
+	return response
+}
