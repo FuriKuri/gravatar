@@ -54,6 +54,10 @@ func (g *Gravatar) RemoveImage(addresses []string) map[string]bool {
 	return CallRemoveImage(Hash(g.Email), g.Password, addresses)
 }
 
+func (g *Gravatar) DeleteImage(image string) bool {
+	return DeleteUserImage(Hash(g.Email), g.Password, image)
+}
+
 func hashToImageArray(images map[string][]string) []Image {
 	result := make([]Image, len(images))
 

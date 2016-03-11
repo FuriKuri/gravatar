@@ -94,3 +94,12 @@ func CallRemoveImage(hash string, password string, addresses []string) map[strin
 
 	return response
 }
+
+func DeleteUserImage(hash string, password string, image string) bool {
+	client, _ := xmlrpc.NewClient(apiURI+hash, nil)
+
+	var response bool
+	client.Call("grav.deleteUserimage", request{Password: password, UserImage: image}, &response)
+
+	return response
+}
