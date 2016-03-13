@@ -38,3 +38,5 @@ func main() {
 	fmt.Printf("Image ID: %s\n", imageId)
 }
 ```
+
+TBD: more examples
