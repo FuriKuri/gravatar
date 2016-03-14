@@ -40,3 +40,6 @@ func main() {
 ```
 
 TBD: more examples
+
+## License
+Code released under [the MIT license](https://github.com/FuriKuri/gravatar/blob/master/LICENSE).
