@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	g, _ := gravatar.New("your@mail.com", "password")
+	g, _ := gravatar.New("<your-mail>", "password")
 	images := g.Images()
 	for _, image := range images {
 		fmt.Printf("Address: %s, Image ID: %s, Image URL: %s \n", 
@@ -33,10 +33,15 @@ package main
 import "github.com/furikuri/gravatar"
 
 func main() {
-	g, _ := gravatar.New("your@mail.com", "password")
-	imageId := g.SaveURL("https://image.url", 0)
+	g, _ := gravatar.New("<your-mail>", "password")
+	imageId := g.SaveURL("https://<image-url>", 0)
 	fmt.Printf("Image ID: %s\n", imageId)
 }
+```
+
+### Use image
+```
+g.UseImage("<image-id>", []string {"<first-mail>", "<second-mail>"})
 ```
 
 TBD: more examples
