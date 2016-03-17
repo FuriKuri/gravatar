@@ -44,6 +44,11 @@ func main() {
 g.UseImage("<image-id>", []string {"<first-mail>", "<second-mail>"})
 ```
 
+### Delete image
+```
+g.DeleteImage("<image-id>")
+```
+
 TBD: more examples
 
 ## License
