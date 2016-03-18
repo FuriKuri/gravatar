@@ -49,6 +49,15 @@ g.UseImage("<image-id>", []string {"<first-mail>", "<second-mail>"})
 g.DeleteImage("<image-id>")
 ```
 
+### Address informations
+```
+result := g.Addresses()
+for _, value := range result {
+	fmt.Printf("Address: %s, Image ID: %s, Image URL: %s \n",
+		value.ID, value.Image.ID, value.Image.URL)
+}
+```
+
 TBD: more examples
 
 ## License
