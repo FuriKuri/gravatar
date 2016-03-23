@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-### Upload new image
+### Upload new image over URL
 ```
 package main
 
@@ -37,6 +37,13 @@ func main() {
 	imageId := g.SaveURL("https://<image-url>", 0)
 	fmt.Printf("Image ID: %s\n", imageId)
 }
+```
+
+### Upload new image as data
+```
+data, _ := ioutil.ReadFile("<image-path>)
+imageID := g.SaveData(data, 0)
+fmt.Printf("Image ID: %s", imageID)
 ```
 
 ### Use image
